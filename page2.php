@@ -1,9 +1,13 @@
 <?php
 // Include the database connection file
-$mysqli= new mysqli('localhost','root','','crud') or die(mysqli_error($mysqli));
+//$mysqli= new mysqli('localhost','root','','crud') or die(mysqli_error($mysqli));
+include ('model.php');
 
-$select = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id asc");
+$users= new model();
 
+//$select = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id asc");
+$data= $users->viewData();
+// print_r($data); assoc array
 
 
 ?>
@@ -20,6 +24,21 @@ $select = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id asc");
 <div  >
     <button><a  href="page1.php"  class="add">Add User</a></button>
 </div>
+<br>
+<?php
+    if(isset($_GET['msg']) and $_GET['msg']== 'ins'){
+        echo "data insertd";
+    }
+    if(isset($_GET['msg']) and $_GET['msg']== 'del'){
+        echo "data deleted";
+    }
+    if(isset($_GET['msg']) and $_GET['msg']== 'update'){
+        echo "data updated";
+    }
+?>
+<br>
+<br>
+<br>
 <table width='80%' border=0>
 		<tr bgcolor='#DDDDDD'>
 			<td><strong>id</strong></td>
@@ -31,7 +50,8 @@ $select = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id asc");
 		</tr>
 		<?php
 		// Fetch the next row of a result set as an associative array
-		while ($res = mysqli_fetch_assoc($select)) {
+		/*
+        while ($res = mysqli_fetch_assoc($select)) {
                 $id   = $res['id'];
                 $name   = $res['username'];
                 $email   = $res['email'];
@@ -50,6 +70,21 @@ $select = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id asc");
            
            
             </tr>';
+        }*/
+
+        foreach($data as $value){
+        ?>
+        <tr>
+          <td><?php echo $value['id']?></td>
+          <td><?php echo $value['username']?></td>
+          <td><?php echo $value['email']?></td>
+          <td><?php echo $value['password']?></td>
+          <td><?php echo $value['gender']?></td>
+          <td><button class="update"><a class="link" name ="update"href="update.php?updateid=<?php echo $value['id']?>">Update</a></button>
+              <button class="delete" name="delete"><a  class="link" href="delete.php?deleteid=<?php echo $value['id']?>">Delete</a></button> 
+          </td>
+        </tr>  
+           <?php
         }
 		?>
 

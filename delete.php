@@ -1,11 +1,11 @@
 <?php
 // Include the database connection file
-$mysqli= new mysqli('localhost','root','','crud') or die(mysqli_error($mysqli));
+//$mysqli= new mysqli('localhost','root','','crud') or die(mysqli_error($mysqli));
 
 // Get id from URL parameter
 
 
-
+/*
 if(isset($_GET['deleteid'])){
 
     $id = $_GET['deleteid'];
@@ -16,5 +16,16 @@ if(isset($_GET['deleteid'])){
     }
 }
 header("Location:page2.php");
+*/
 
+include ('model.php');
+
+$users= new model();
+
+if(isset($_GET['deleteid'])){
+
+    $id = $_GET['deleteid'];
+
+    $users->deleteData($id);
+}
 ?>

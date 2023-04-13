@@ -1,10 +1,14 @@
 <?php
 
-$mysqli= new mysqli('localhost','root','','crud') or die(mysqli_error($mysqli));
+include ('model.php');
 
+$users= new model();
 
 if(isset($_POST['sign'])){
 
+    $users->insertData($_POST);
+
+    /* 
     $name   = $_POST['username'];
     $email   = $_POST['email'];
     $password   = $_POST['password'];
@@ -12,7 +16,7 @@ if(isset($_POST['sign'])){
     $repeat   = $_POST['repassword'];
     
     
-    if(empty($name)||empty($email)||empty($password)||empty($gender)||empty($repeat)||$password!==$repeat){
+   if(empty($name)||empty($email)||empty($password)||empty($gender)||empty($repeat)||$password!==$repeat){
     
         if(empty($name)){echo "<font color='red'>Name field is empty.</font><br/>";}
         if(empty($email)){echo "<font color='red'>Email field is empty.</font><br/>";}
@@ -26,7 +30,9 @@ if(isset($_POST['sign'])){
     
         header("Location:page2.php");
 
-    }
+    }*/
+
+
     }
     ?>
     
